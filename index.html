@@ -1,1535 +1,310 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tejswini Tiwari - Full Stack Developer and AI/ML Engineer Portfolio" />
+  <title>Tejswini Tiwari | Full Stack Developer</title>
 
-  <title>Tejswini Tiwari | Full Stack Engineer</title>
-  <meta name="description" content="Tejswini Tiwari — Full Stack Developer interested in backend engineering, cloud infrastructure, APIs, and scalable applications." />
-  <meta name="theme-color" content="#080d18" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            bg: '#071422',
+            card: '#0f1d2e',
+            primary: '#06b6d4',
+            accent: '#818cf8',
+            muted: '#94a3b8'
+          },
+          boxShadow: {
+            glow: '0 0 35px rgba(6,182,212,0.12)'
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root {
-      --bg: #080d18;
-      --surface: #101827;
-      --surface-light: #141f31;
-      --border: rgba(148, 163, 184, 0.15);
-      --text: #edf3fc;
-      --muted: #9aa9bd;
-      --primary: #62e6d4;
-      --secondary: #8c9eff;
-      --mono: "DM Mono", monospace;
-      --sans: "Manrope", sans-serif;
-      --container: 1120px;
-    }
-
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.7;
-      overflow-x: hidden;
+      background: #071422;
+      color: #e6eef6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    ::selection {
-      background: var(--primary);
-      color: #07111b;
-    }
-
-    .container {
-      width: min(var(--container), calc(100% - 48px));
-      margin: auto;
-    }
-
-    .mono {
-      font-family: var(--mono);
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .accent {
-      color: var(--primary);
-    }
-
-    .gradient-text {
-      background: linear-gradient(110deg, var(--primary), var(--secondary));
+    .text-gradient {
+      background: linear-gradient(90deg, #06b6d4, #818cf8);
       -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
     }
 
-    .section {
-      padding: 110px 0;
+    .glass {
+      background: rgba(15, 29, 46, 0.78);
+      backdrop-filter: blur(14px);
     }
 
-    .section-heading {
-      margin-bottom: 48px;
+    .card-hover {
+      transition: all 0.3s ease;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--primary);
-      font: 12px var(--mono);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 24px;
-      height: 1px;
-      background: var(--primary);
-    }
-
-    .section-heading h2 {
-      font-size: clamp(30px, 5vw, 44px);
-      line-height: 1.2;
-      letter-spacing: -1.8px;
-    }
-
-    .section-description {
-      color: var(--muted);
-      max-width: 650px;
-      margin-top: 15px;
-      font-size: 15px;
-    }
-
-    /* Navigation */
-
-    .navbar {
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(8, 13, 24, 0.86);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font: 700 23px var(--mono);
-      letter-spacing: -2px;
-    }
-
-    .logo span {
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 12px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-contact {
-      border: 1px solid rgba(98, 230, 212, 0.4);
-      color: var(--primary) !important;
-      padding: 9px 16px;
-      border-radius: 7px;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: 0;
-      color: var(--text);
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    /* Hero */
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 135px 0 90px;
-      position: relative;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 550px;
-      height: 550px;
-      right: -180px;
-      top: 80px;
-      background: radial-gradient(circle, rgba(98, 230, 212, 0.10), transparent 68%);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 65px;
-      align-items: center;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 8px 13px;
-      border: 1px solid rgba(98, 230, 212, 0.25);
-      border-radius: 30px;
-      background: rgba(98, 230, 212, 0.06);
-      color: var(--primary);
-      font: 11px var(--mono);
-      letter-spacing: 1px;
-      margin-bottom: 27px;
-    }
-
-    .status-dot {
-      height: 7px;
-      width: 7px;
-      border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 12px var(--primary);
-    }
-
-    .hero h1 {
-      font-size: clamp(48px, 7vw, 78px);
-      line-height: 1.08;
-      letter-spacing: -4px;
-      font-weight: 800;
-    }
-
-    .hero-role {
-      font-size: clamp(18px, 2.5vw, 23px);
-      color: #c5d1e1;
-      margin-top: 20px;
-      font-weight: 600;
-    }
-
-    .hero-description {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.95;
-      margin-top: 23px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 32px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 20px;
-      border-radius: 7px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: 0.25s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #07131b;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(98, 230, 212, 0.18);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-3px);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      margin-top: 35px;
-      color: var(--muted);
-      font: 11px var(--mono);
-    }
-
-    .hero-meta span {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-meta i {
-      color: var(--primary);
-    }
-
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-
-    .profile-frame {
-      width: 270px;
-      height: 330px;
-      border: 1px solid rgba(98, 230, 212, 0.3);
-      border-radius: 18px;
-      overflow: hidden;
-      background: var(--surface);
-      position: relative;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
-    }
-
-    .profile-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(98, 230, 212, 0.15);
-      border-radius: inherit;
-      pointer-events: none;
-    }
-
-    .floating-card {
-      position: absolute;
-      bottom: 25px;
-      left: -35px;
-      background: var(--surface-light);
-      border: 1px solid var(--border);
-      padding: 13px 17px;
-      border-radius: 9px;
-      font: 11px var(--mono);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    }
-
-    .floating-card strong {
-      display: block;
-      color: var(--primary);
-      font-size: 15px;
-      margin-bottom: 3px;
-    }
-
-    /* Focus areas */
-
-    .focus-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: rgba(16, 24, 39, 0.55);
-    }
-
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .focus-item {
-      padding: 25px 15px;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
-
-    .focus-item:last-child {
-      border-right: 0;
-    }
-
-    .focus-item i {
-      color: var(--primary);
-      font-size: 19px;
-      margin-bottom: 9px;
-    }
-
-    .focus-item p {
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* About */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 65px;
-    }
-
-    .about-copy p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 2;
-      margin-bottom: 17px;
-    }
-
-    .about-copy strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .about-note {
-      border-left: 2px solid var(--primary);
-      padding: 14px 20px;
-      background: rgba(98, 230, 212, 0.045);
-      color: #c8d5e4;
-      font-size: 13px;
-      margin-top: 25px;
-    }
-
-    .education-card {
-      padding: 26px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-
-    .education-card + .education-card {
-      margin-top: 15px;
-    }
-
-    .education-card .date {
-      color: var(--primary);
-      font: 11px var(--mono);
-      margin-bottom: 10px;
-    }
-
-    .education-card h3 {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 7px;
-    }
-
-    .education-card p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .education-score {
-      display: inline-block;
-      margin-top: 14px;
-      color: var(--primary);
-      font: 12px var(--mono);
-    }
-
-    /* Skills */
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
-    }
-
-    .skill-card {
-      padding: 24px;
-      border-radius: 11px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      transition: 0.25s;
-    }
-
-    .skill-card:hover {
-      border-color: rgba(98, 230, 212, 0.45);
-      transform: translateY(-4px);
-    }
-
-    .skill-card h3 {
-      font-size: 14px;
-      margin-bottom: 17px;
-    }
-
-    .skill-card h3 i {
-      color: var(--primary);
-      margin-right: 9px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      padding: 6px 9px;
-      border-radius: 5px;
-      background: #192538;
-      border: 1px solid rgba(148, 163, 184, 0.10);
-      color: #b9c7d9;
-      font: 10px var(--mono);
-    }
-
-    /* Projects */
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .project-card {
-      padding: 27px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      transition: 0.25s;
-    }
-
-    .project-card:hover {
+    .card-hover:hover {
       transform: translateY(-5px);
-      border-color: rgba(98, 230, 212, 0.4);
+      border-color: #06b6d4;
+      box-shadow: 0 10px 35px rgba(6, 182, 212, 0.08);
     }
 
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+    .section-label {
+      color: #06b6d4;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .project-type {
-      color: var(--primary);
-      font: 10px var(--mono);
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    ::-webkit-scrollbar {
+      width: 8px;
     }
 
-    .project-icon {
-      color: var(--primary);
-      font-size: 22px;
+    ::-webkit-scrollbar-track {
+      background: #071422;
     }
 
-    .project-card h3 {
-      font-size: 19px;
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-
-    .project-card > p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.85;
-      margin-bottom: 17px;
-    }
-
-    .project-points {
-      list-style: none;
-      margin-bottom: 22px;
-    }
-
-    .project-points li {
-      position: relative;
-      padding-left: 17px;
-      color: #b7c5d7;
-      font-size: 12px;
-      line-height: 1.8;
-      margin: 7px 0;
-    }
-
-    .project-points li::before {
-      content: "▹";
-      color: var(--primary);
-      position: absolute;
-      left: 0;
-    }
-
-    .project-card .tags {
-      margin-top: auto;
-      padding-top: 15px;
-    }
-
-    .project-link {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--primary);
-      font: 11px var(--mono);
-      margin-top: 20px;
-      width: fit-content;
-    }
-
-    .project-link:hover {
-      color: white;
-    }
-
-    /* Experience */
-
-    .timeline {
-      position: relative;
-      max-width: 900px;
-      margin-left: 10px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 6px;
-      top: 10px;
-      bottom: 10px;
-      width: 1px;
-      background: rgba(98, 230, 212, 0.25);
-    }
-
-    .experience-item {
-      position: relative;
-      padding: 0 0 43px 40px;
-    }
-
-    .experience-item:last-child {
-      padding-bottom: 0;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 0;
-      top: 7px;
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 12px rgba(98, 230, 212, 0.3);
-    }
-
-    .experience-card {
-      padding: 25px 27px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 11px;
-    }
-
-    .experience-date {
-      color: var(--primary);
-      font: 11px var(--mono);
-      margin-bottom: 9px;
-    }
-
-    .experience-card h3 {
-      font-size: 17px;
-    }
-
-    .experience-company {
-      color: var(--muted);
-      font-size: 12px;
-      margin: 5px 0 16px;
-    }
-
-    .experience-card ul {
-      list-style: none;
-    }
-
-    .experience-card li {
-      color: #b9c7d8;
-      font-size: 12px;
-      line-height: 1.9;
-      padding-left: 17px;
-      position: relative;
-      margin: 5px 0;
-    }
-
-    .experience-card li::before {
-      content: "▹";
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-    }
-
-    .experience-card .tags {
-      margin-top: 17px;
-    }
-
-    /* Engineering approach */
-
-    .approach-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
-    }
-
-    .approach-card {
-      padding: 25px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+    ::-webkit-scrollbar-thumb {
+      background: #164158;
       border-radius: 10px;
     }
 
-    .approach-card i {
-      color: var(--primary);
-      font-size: 21px;
-      margin-bottom: 18px;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
     }
 
-    .approach-card h3 {
-      font-size: 14px;
-      margin-bottom: 9px;
+    .skill-tag {
+      border: 1px solid #24394d;
+      background: rgba(15, 29, 46, 0.8);
+      transition: 0.25s ease;
     }
 
-    .approach-card p {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.9;
+    .skill-tag:hover {
+      border-color: #06b6d4;
+      color: #06b6d4;
     }
 
-    /* Achievements — retained from original portfolio */
-
-    .achievements-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+    .gradient-border {
+      border: 1px solid rgba(6, 182, 212, 0.3);
     }
 
-    .achievement-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 26px;
-    }
-
-    .achievement-card h3 {
-      font-size: 15px;
-      margin-bottom: 15px;
-    }
-
-    .achievement-card ul {
-      list-style: disc;
-      list-style-position: inside;
-      color: #c3cede;
-      font-size: 12px;
-    }
-
-    .achievement-card li {
-      margin: 11px 0;
-      line-height: 1.8;
-    }
-
-    .achievement-card p {
-      color: #c3cede;
-      font-size: 12px;
-      line-height: 1.9;
-      margin-bottom: 10px;
-    }
-
-    /* Contact */
-
-    .contact-section {
-      text-align: center;
-      padding: 100px 0 80px;
-      border-top: 1px solid var(--border);
-      background: radial-gradient(ellipse at 50% 100%, rgba(98, 230, 212, 0.07), transparent 60%);
-    }
-
-    .contact-section h2 {
-      font-size: clamp(35px, 6vw, 55px);
-      letter-spacing: -2px;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    .contact-section > .container > p {
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 580px;
-      margin: 0 auto;
-    }
-
-    .contact-actions {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin-top: 30px;
-    }
-
-    .contact-details {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      margin-top: 32px;
-      color: var(--muted);
-      font: 11px var(--mono);
-    }
-
-    .contact-details a:hover {
-      color: var(--primary);
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 23px 0;
-      text-align: center;
-      color: #718096;
-      font: 10px var(--mono);
-    }
-
-    /* Reveal animation */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Responsive */
-
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr 0.7fr;
-        gap: 30px;
-      }
-
-      .profile-frame {
-        width: 220px;
-        height: 280px;
-      }
-
-      .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .approach-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        width: min(100% - 36px, var(--container));
-      }
-
-      .section {
-        padding: 78px 0;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 76px;
-        left: 0;
-        width: 100%;
-        padding: 22px;
-        background: #0d1625;
-        border-bottom: 1px solid var(--border);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .hero {
-        padding-top: 125px;
-        min-height: auto;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        letter-spacing: -2.5px;
-      }
-
-      .hero-visual {
-        justify-content: flex-start;
-        margin: 30px 0 10px 35px;
-      }
-
-      .profile-frame {
-        width: 220px;
-        height: 260px;
-      }
-
-      .floating-card {
-        left: 145px;
-        bottom: 15px;
-      }
-
-      .focus-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .focus-item:nth-child(2) {
-        border-right: 0;
-      }
-
-      .focus-item:nth-child(-n+2) {
-        border-bottom: 1px solid var(--border);
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .projects-grid,
-      .achievements-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .skills-grid,
-      .approach-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .hero-meta {
-        gap: 13px;
-      }
-    }
-
-    @media (max-width: 440px) {
-      .skills-grid,
-      .approach-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .experience-item {
-        padding-left: 30px;
-      }
-
-      .experience-card {
-        padding: 20px;
-      }
-
-      .contact-details {
-        flex-direction: column;
-        gap: 12px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
+    .timeline-line {
+      border-left: 1px solid #244155;
     }
   </style>
 </head>
 
-<body>
+<body class="antialiased overflow-x-hidden font-sans">
 
-  <!-- NAVIGATION -->
-  <nav class="navbar">
-    <div class="container nav-inner">
+  <!-- Background -->
+  <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500 opacity-[0.07] blur-[120px] rounded-full"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-indigo-500 opacity-[0.07] blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-cyan-500 opacity-[0.04] blur-[120px] rounded-full"></div>
+  </div>
 
-      <a href="#home" class="logo">TT<span>.</span></a>
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
+      <a href="#home" class="text-2xl font-bold font-mono tracking-tight">
+        TT<span class="text-primary">.</span>
+      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#contact" class="nav-contact">Contact ↗</a>
+      <div class="hidden md:flex items-center gap-7 text-sm text-slate-300">
+        <a href="#about" class="hover:text-primary transition">About</a>
+        <a href="#experience" class="hover:text-primary transition">Experience</a>
+        <a href="#projects" class="hover:text-primary transition">Projects</a>
+        <a href="#achievements" class="hover:text-primary transition">Achievements</a>
+        <a href="#tools" class="hover:text-primary transition">Tools</a>
+        <a href="#contact" class="hover:text-primary transition">Contact</a>
       </div>
+
+      <a href="https://github.com/tejswini-tiwari"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-xl text-slate-400 hover:text-primary transition">
+        <i class="fab fa-github"></i>
+      </a>
 
     </div>
   </nav>
 
 
-  <main>
+  <main class="max-w-6xl mx-auto px-6 pt-24">
 
     <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="container hero-grid">
+    <section id="home" class="min-h-[85vh] flex items-center py-20">
 
-        <div class="reveal">
+      <div class="grid md:grid-cols-2 gap-12 items-center w-full">
 
-          <div class="status">
-            <span class="status-dot"></span>
-            SOFTWARE ENGINEERING · FULL STACK
-          </div>
+        <div>
+          <p class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-primary text-sm font-mono mb-6">
+            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+            Available for opportunities
+          </p>
 
-          <h1>
-            Tejswini<br>
-            <span class="gradient-text">Tiwari.</span>
+          <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">
+            Tejswini
+            <span class="text-gradient">Tiwari</span>
           </h1>
 
-          <h2 class="hero-role">
-            Full Stack Developer <span class="accent">|</span>
-            Backend & Cloud Enthusiast
+          <h2 class="text-2xl md:text-3xl font-semibold text-slate-300 mt-4">
+            Full Stack Developer
+            <span class="text-primary">&</span>
+            AI/ML Engineer
           </h2>
 
-          <p class="hero-description">
-            I build applications that connect intuitive interfaces
-            with reliable backend systems. My experience spans
-            full-stack development, REST APIs, databases, real-time
-            applications, and containerized deployments.
-            I enjoy understanding how systems work end-to-end
-            and turning engineering challenges into practical solutions.
+          <p class="text-slate-400 mt-6 leading-relaxed max-w-xl">
+            I enjoy building reliable, scalable applications — from interactive
+            frontend experiences to backend APIs, databases, and AI-powered systems.
+            I am interested in solving engineering problems, understanding
+            systems end-to-end, and turning ideas into working products.
           </p>
 
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
-              Explore My Work <i class="fas fa-arrow-right"></i>
+          <div class="flex flex-wrap gap-4 mt-8">
+
+            <a href="#projects"
+               class="px-6 py-3 bg-primary text-[#071422] font-bold rounded-lg hover:bg-cyan-300 transition">
+              Explore Projects
+              <i class="fas fa-arrow-right ml-2"></i>
             </a>
 
-            <a href="mailto:tiwaritejswini1@gmail.com" class="btn btn-outline">
-              Get in Touch <i class="far fa-envelope"></i>
+            <a href="#contact"
+               class="px-6 py-3 border border-slate-700 rounded-lg hover:border-primary hover:text-primary transition">
+              Get in Touch
             </a>
+
           </div>
 
-          <div class="hero-meta">
-            <span><i class="fas fa-map-marker-alt"></i> Indore, India</span>
-            <span><i class="fas fa-graduation-cap"></i> IIPS, DAVV</span>
-            <span><i class="fas fa-code"></i> 700+ DSA Problems</span>
+          <div class="flex flex-wrap gap-6 mt-10 text-sm text-slate-400 font-mono">
+            <span><i class="fas fa-map-marker-alt text-primary mr-2"></i>Indore, India</span>
+            <span><i class="fas fa-graduation-cap text-primary mr-2"></i>Integrated BTech + MTech</span>
           </div>
-
         </div>
 
-        <div class="hero-visual reveal">
 
-          <div class="profile-frame">
-            <img
-              src="https://github.com/tejswini-tiwari.png"
-              alt="Tejswini Tiwari"
-            >
+        <!-- Profile -->
+        <div class="flex justify-center">
+          <div class="relative">
+
+            <div class="absolute inset-0 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden border border-slate-700 shadow-glow">
+              <img
+                src="https://github.com/tejswini-tiwari.png"
+                alt="Tejswini Tiwari"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <div class="absolute -bottom-5 -left-8 glass border border-slate-700 rounded-xl px-5 py-3">
+              <p class="text-xs text-slate-400 font-mono">CGPA</p>
+              <p class="text-xl font-bold text-primary">9.23 / 10</p>
+            </div>
+
+            <div class="absolute -top-5 -right-8 glass border border-slate-700 rounded-xl px-5 py-3">
+              <p class="text-xs text-slate-400 font-mono">Focus</p>
+              <p class="text-sm font-semibold">Full Stack & AI</p>
+            </div>
+
           </div>
-
-          <div class="floating-card">
-            <strong>9.23 / 10</strong>
-            Academic CGPA
-          </div>
-
         </div>
 
       </div>
     </section>
 
 
-    <!-- ENGINEERING FOCUS -->
-    <section class="focus-strip">
-      <div class="container focus-grid">
+    <!-- ABOUT -->
+    <section id="about" class="py-20">
 
-        <div class="focus-item">
-          <i class="fas fa-laptop-code"></i>
-          <p>Full Stack Development</p>
-        </div>
-
-        <div class="focus-item">
-          <i class="fas fa-server"></i>
-          <p>Backend & APIs</p>
-        </div>
-
-        <div class="focus-item">
-          <i class="fas fa-database"></i>
-          <p>Databases & Systems</p>
-        </div>
-
-        <div class="focus-item">
-          <i class="fab fa-docker"></i>
-          <p>Cloud & Containers</p>
-        </div>
-
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">01.</span> About Me
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
       </div>
-    </section>
 
+      <div class="grid md:grid-cols-2 gap-10">
 
-    <!-- ABOUT & EDUCATION -->
-    <section class="section" id="about">
-      <div class="container">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">A little about myself</h3>
 
-        <div class="section-heading reveal">
-          <span class="eyebrow">01 / ABOUT ME</span>
-          <h2>Curious about systems.<br><span class="gradient-text">Driven to build.</span></h2>
-        </div>
+          <p class="text-slate-400 leading-relaxed mb-5">
+            I am an Information Technology student at the International Institute
+            of Professional Studies, DAVV, Indore. My interests lie in full-stack
+            development, backend engineering, databases, and applied AI.
+          </p>
 
-        <div class="about-grid">
+          <p class="text-slate-400 leading-relaxed mb-5">
+            I have experience working with frontend interfaces, REST APIs,
+            authentication, databases, containerized applications, and
+            machine learning pipelines. I enjoy collaborating with teams,
+            learning new technologies, and improving software through
+            experimentation and feedback.
+          </p>
 
-          <div class="about-copy reveal">
-
-            <p>
-              I'm an Information Technology undergraduate pursuing
-              an <strong>Integrated BTech + MTech degree</strong> at
-              the International Institute of Professional Studies,
-              DAVV, Indore.
-            </p>
-
-            <p>
-              I enjoy working across the software development stack:
-              building frontend interfaces, designing backend APIs,
-              integrating databases, and connecting different
-              components into working applications.
-            </p>
-
-            <p>
-              During my internships, I've contributed to applications
-              used by real users, implemented role-based workflows,
-              worked with database-backed services, and collaborated
-              through GitHub pull requests, reviews, and testing.
-            </p>
-
-            <p>
-              I am particularly interested in backend engineering,
-              distributed application concepts, cloud computing,
-              containerization, and writing maintainable software.
-              I also enjoy learning from technical communities
-              and contributing to collaborative projects.
-            </p>
-
-            <div class="about-note">
-              My engineering approach: understand the problem,
-              make deliberate technical decisions, build incrementally,
-              test the result, and improve through feedback.
-            </div>
-
-          </div>
-
-
-          <div class="education reveal">
-
-            <div class="education-card">
-              <div class="date">AUG 2023 — MAY 2028</div>
-
-              <h3>Integrated BTech + MTech in Information Technology</h3>
-
-              <p>
-                International Institute of Professional Studies,
-                Devi Ahilya Vishwavidyalaya, Indore
-              </p>
-
-              <span class="education-score">CGPA: 9.23 / 10</span>
-            </div>
-
-            <div class="education-card">
-              <div class="date">APRIL 2023</div>
-
-              <h3>Intermediate & Matriculation</h3>
-
-              <p>School for Excellence, Dewas</p>
-
-              <span class="education-score">
-                Intermediate: 96% · Matriculation: 93.4%
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- TECHNICAL SKILLS -->
-    <section class="section" id="skills">
-      <div class="container">
-
-        <div class="section-heading reveal">
-          <span class="eyebrow">02 / TECHNICAL SKILLS</span>
-          <h2>Tools I use to <span class="gradient-text">build.</span></h2>
-          <p class="section-description">
-            Technologies and engineering tools I've worked with
-            across academic, internship, and personal projects.
+          <p class="text-slate-400 leading-relaxed">
+            Beyond academics, I contribute to student developer communities
+            and enjoy participating in technical competitions and collaborative
+            projects.
           </p>
         </div>
 
 
-        <div class="skills-grid">
+        <div class="bg-card border border-slate-800 rounded-2xl p-7">
 
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-code"></i> Programming Languages</h3>
-            <div class="tags">
-              <span class="tag">C++</span>
-              <span class="tag">Python</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">SQL</span>
-            </div>
-          </div>
+          <h3 class="text-xl font-semibold mb-6">
+            <i class="fas fa-graduation-cap text-primary mr-2"></i>
+            Education
+          </h3>
 
+          <div class="mb-7">
+            <h4 class="text-white font-semibold">
+              Integrated BTech + MTech in Information Technology
+            </h4>
 
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-window-maximize"></i> Frontend Development</h3>
-            <div class="tags">
-              <span class="tag">React</span>
-              <span class="tag">HTML5</span>
-              <span class="tag">CSS3</span>
-              <span class="tag">Tailwind CSS</span>
-              <span class="tag">Responsive UI</span>
-            </div>
-          </div>
-
-
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-server"></i> Backend Development</h3>
-            <div class="tags">
-              <span class="tag">Node.js</span>
-              <span class="tag">Express.js</span>
-              <span class="tag">FastAPI</span>
-              <span class="tag">Flask</span>
-              <span class="tag">REST APIs</span>
-            </div>
-          </div>
-
-
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-database"></i> Databases & Messaging</h3>
-            <div class="tags">
-              <span class="tag">MongoDB</span>
-              <span class="tag">PostgreSQL</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">Redis</span>
-              <span class="tag">ChromaDB</span>
-            </div>
-          </div>
-
-
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-cloud"></i> Cloud & Development Tools</h3>
-            <div class="tags">
-              <span class="tag">AWS</span>
-              <span class="tag">Docker</span>
-              <span class="tag">Docker Compose</span>
-              <span class="tag">Git</span>
-              <span class="tag">GitHub</span>
-              <span class="tag">VS Code</span>
-            </div>
-          </div>
-
-
-          <div class="skill-card reveal">
-            <h3><i class="fas fa-terminal"></i> Systems & Foundations</h3>
-            <div class="tags">
-              <span class="tag">Linux / Ubuntu</span>
-              <span class="tag">WSL</span>
-              <span class="tag">Data Structures</span>
-              <span class="tag">Algorithms</span>
-              <span class="tag">OOP</span>
-              <span class="tag">DBMS</span>
-              <span class="tag">Computer Networks</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- PROJECTS -->
-    <section class="section" id="projects">
-      <div class="container">
-
-        <div class="section-heading reveal">
-          <span class="eyebrow">03 / SELECTED PROJECTS</span>
-          <h2>From interfaces to <span class="gradient-text">systems.</span></h2>
-          <p class="section-description">
-            Projects demonstrating application development,
-            backend integration, data management, and system design.
-          </p>
-        </div>
-
-
-        <div class="projects-grid">
-
-          <!-- Project 1 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Full Stack · Application Development</span>
-              <i class="fas fa-users project-icon"></i>
-            </div>
-
-            <h3>FAQ & Community Support Platform</h3>
-
-            <p>
-              Contributed to a full-stack FAQ and community support
-              application designed to help students access information
-              and interact through structured workflows.
+            <p class="text-slate-400 text-sm mt-1">
+              International Institute of Professional Studies, DAVV, Indore
             </p>
 
-            <ul class="project-points">
-              <li>Built and improved application workflows serving 1,500+ students.</li>
-              <li>Worked on role-based functionality across 3 user roles and 10+ workflows.</li>
-              <li>Integrated MongoDB Atlas Vector Search for retrieval across 10K+ documents.</li>
-              <li>Collaborated through pull requests, code reviews, testing, and stakeholder feedback.</li>
-            </ul>
-
-            <div class="tags">
-              <span class="tag">React</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">MongoDB</span>
-              <span class="tag">REST APIs</span>
-              <span class="tag">GitHub</span>
-            </div>
-
-            <a href="https://github.com/tejswini-tiwari" target="_blank" rel="noopener noreferrer" class="project-link">
-              Explore GitHub <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
-
-
-          <!-- Project 2 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Backend · Real-Time Systems</span>
-              <i class="fas fa-network-wired project-icon"></i>
-            </div>
-
-            <h3>Real-Time Multiplayer Game</h3>
-
-            <p>
-              Developed a terminal-based two-player game using
-              a client-server architecture with synchronized
-              gameplay over a network.
+            <p class="text-slate-500 text-sm mt-2 font-mono">
+              Aug 2023 – May 2028
             </p>
 
-            <ul class="project-points">
-              <li>Implemented TCP/IP communication using Python sockets.</li>
-              <li>Managed client-server interactions and synchronized game state.</li>
-              <li>Handled turn-based interactions and communication between clients.</li>
-              <li>Designed an ASCII interface for terminal-based gameplay.</li>
-            </ul>
+            <p class="text-primary font-semibold mt-2">
+              CGPA: 9.23 / 10
+            </p>
+          </div>
 
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">TCP/IP</span>
-              <span class="tag">Sockets</span>
-              <span class="tag">Networking</span>
-            </div>
+          <div class="border-t border-slate-800 pt-6">
+            <h4 class="text-white font-semibold">
+              School for Excellence, Dewas
+            </h4>
 
-            <a href="https://github.com/tejswini-tiwari/Terminal-Based-Game" target="_blank" rel="noopener noreferrer" class="project-link">
-              View Source Code <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
-
-
-          <!-- Project 3 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Backend · Data & Messaging</span>
-              <i class="fas fa-video project-icon"></i>
-            </div>
-
-            <h3>IntelliS — Retail Intelligence Platform</h3>
-
-            <p>
-              Developed a retail analytics system combining
-              computer vision, event processing, and centralized
-              data storage for multi-camera environments.
+            <p class="text-slate-400 text-sm mt-2">
+              Intermediate: 96%
             </p>
 
-            <ul class="project-points">
-              <li>Integrated YOLOv8 and ByteTrack for object tracking across 5+ cameras.</li>
-              <li>Designed Redis Pub/Sub-based event communication.</li>
-              <li>Used PostgreSQL for structured analytics and event storage.</li>
-              <li>Designed for 20+ retail locations and 10K+ daily events.</li>
-            </ul>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Redis</span>
-              <span class="tag">PostgreSQL</span>
-              <span class="tag">YOLOv8</span>
-            </div>
-
-            <a href="https://github.com/tejswini-tiwari/store-intelligence" target="_blank" rel="noopener noreferrer" class="project-link">
-              Explore GitHub <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
-
-
-          <!-- Project 4 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Backend · API · Containerization</span>
-              <i class="fas fa-chart-line project-icon"></i>
-            </div>
-
-            <h3>IPL Win Probability Engine</h3>
-
-            <p>
-              Built an application that predicts IPL match win
-              probabilities through a backend prediction API
-              and an interactive frontend.
+            <p class="text-slate-400 text-sm">
+              Matriculation: 93.4%
             </p>
-
-            <ul class="project-points">
-              <li>Processed 75K+ innings-level records.</li>
-              <li>Developed prediction pipelines using scikit-learn and FastAPI.</li>
-              <li>Created an interactive interface using Streamlit.</li>
-              <li>Achieved 86% accuracy and inference latency below 200 ms.</li>
-              <li>Used Docker Compose to reduce setup time by 90%.</li>
-            </ul>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">FastAPI</span>
-              <span class="tag">Streamlit</span>
-              <span class="tag">Docker</span>
-            </div>
-
-            <a href="https://github.com/tejswini-tiwari/IPL-win-probability-predictor" target="_blank" rel="noopener noreferrer" class="project-link">
-              Explore GitHub <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
-
-
-          <!-- Project 5 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Backend · Database · Security</span>
-              <i class="fas fa-lock project-icon"></i>
-            </div>
-
-            <h3>Retail Sentiment Application</h3>
-
-            <p>
-              Developed a web application that analyzes customer
-              reviews and provides structured sentiment insights
-              for retail businesses.
-            </p>
-
-            <ul class="project-points">
-              <li>Built backend functionality using Python and Flask.</li>
-              <li>Integrated MySQL-based user authentication and data storage.</li>
-              <li>Implemented sentiment analysis and automated review insights.</li>
-              <li>Achieved approximately 92% accuracy on 1,000+ reviews.</li>
-              <li>Reduced manual review effort by approximately 70%.</li>
-            </ul>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Flask</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">NLTK</span>
-            </div>
-
-            <a href="https://github.com/tejswini-tiwari/Retail-Sentiment-App" target="_blank" rel="noopener noreferrer" class="project-link">
-              View Source Code <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
-
-
-          <!-- Project 6 -->
-          <article class="project-card reveal">
-
-            <div class="project-top">
-              <span class="project-type">Backend · Retrieval Systems</span>
-              <i class="fas fa-magnifying-glass project-icon"></i>
-            </div>
-
-            <h3>Rest-Rev — Restaurant Review Intelligence</h3>
-
-            <p>
-              Developed a retrieval-augmented generation system
-              for semantic discovery and contextual exploration
-              across restaurant reviews.
-            </p>
-
-            <ul class="project-points">
-              <li>Processed 50K+ restaurant reviews.</li>
-              <li>Implemented semantic retrieval using embeddings and ChromaDB.</li>
-              <li>Integrated LLaMA 3.2 for contextual response generation.</li>
-              <li>Improved relevance by 30%+ over keyword-based retrieval.</li>
-              <li>Achieved response times below 2 seconds.</li>
-            </ul>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">LangChain</span>
-              <span class="tag">ChromaDB</span>
-              <span class="tag">LLMs</span>
-            </div>
-
-            <a href="https://github.com/tejswini-tiwari/Rest-Rev" target="_blank" rel="noopener noreferrer" class="project-link">
-              Explore GitHub <i class="fas fa-arrow-up-right-from-square"></i>
-            </a>
-
-          </article>
+          </div>
 
         </div>
       </div>
@@ -1537,374 +312,667 @@
 
 
     <!-- EXPERIENCE -->
-    <section class="section" id="experience">
-      <div class="container">
+    <section id="experience" class="py-20">
 
-        <div class="section-heading reveal">
-          <span class="eyebrow">04 / EXPERIENCE</span>
-          <h2>Learning through <span class="gradient-text">building.</span></h2>
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">02.</span> Experience
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+
+      <div class="space-y-7">
+
+        <!-- Cornerstone -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
+
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                Data Science Intern
+              </h3>
+
+              <p class="text-primary font-semibold mt-1">
+                Cornerstone Solutions
+              </p>
+            </div>
+
+            <p class="text-slate-500 text-sm font-mono">
+              Jul 2026 – Present | Indore, India
+            </p>
+
+          </div>
+
+          <ul class="mt-5 space-y-3 text-slate-400 text-sm leading-relaxed">
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Working on a computer vision pipeline for tunnel crack and defect detection using RF-DETR.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Performing error analysis and experimenting with hyperparameters and data augmentation strategies.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Evaluating model performance using precision, recall, and mAP50–95 metrics.
+            </li>
+          </ul>
+
         </div>
 
 
-        <div class="timeline">
+        <!-- IIT Ropar -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
 
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
 
-          <!-- Vicharanashala -->
-          <article class="experience-item reveal">
-            <span class="timeline-dot"></span>
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                Full Stack Development Intern
+              </h3>
 
-            <div class="experience-card">
-
-              <div class="experience-date">MAY 2026 — JUL 2026 · REMOTE</div>
-
-              <h3>Full Stack Engineering Intern</h3>
-
-              <p class="experience-company">
-                Vicharanashala Lab for Education Design · IIT Ropar
+              <p class="text-primary font-semibold mt-1">
+                Vicharanashala Lab for Education Design, IIT Ropar
               </p>
-
-              <ul>
-                <li>Contributed to a full-stack FAQ and community support application serving 1,500+ students.</li>
-                <li>Worked on role-based functionality covering 3 user roles and 10+ workflows.</li>
-                <li>Integrated MongoDB Atlas Vector Search for retrieval across 10K+ documents.</li>
-                <li>Collaborated in a 15-member intern team through GitHub pull requests, code reviews, testing, and stakeholder feedback.</li>
-              </ul>
-
-              <div class="tags">
-                <span class="tag">React</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">MongoDB</span>
-                <span class="tag">Git</span>
-                <span class="tag">GitHub</span>
-              </div>
-
             </div>
-          </article>
+
+            <p class="text-slate-500 text-sm font-mono">
+              May 2026 – Jul 2026 | Remote
+            </p>
+
+          </div>
+
+          <ul class="mt-5 space-y-3 text-slate-400 text-sm leading-relaxed">
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Contributed to an AI-powered FAQ and Community Support application for 1,500+ students using the MERN stack.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Developed role-based functionality for students, moderators, and administrators across 10+ workflows.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Worked on semantic search and duplicate question detection using MongoDB Atlas Vector Search.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Collaborated with a 15-member intern team through code reviews, testing, pull requests, and stakeholder feedback.
+            </li>
+          </ul>
+
+        </div>
 
 
-          <!-- Cornerstone -->
-          <article class="experience-item reveal">
-            <span class="timeline-dot"></span>
+        <!-- Infosys -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
 
-            <div class="experience-card">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
 
-              <div class="experience-date">JUL 2026 — PRESENT · ONSITE</div>
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                Machine Learning Intern
+              </h3>
 
-              <h3>Data Science Intern</h3>
-
-              <p class="experience-company">
-                Cornerstone Solutions · Indore
+              <p class="text-primary font-semibold mt-1">
+                Infosys
               </p>
-
-              <ul>
-                <li>Developing a computer vision pipeline for tunnel crack and defect detection using RF-DETR.</li>
-                <li>Performing error analysis and tuning model hyperparameters and data augmentations.</li>
-                <li>Evaluating model performance using precision, recall, and mAP metrics.</li>
-              </ul>
-
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">Computer Vision</span>
-                <span class="tag">RF-DETR</span>
-              </div>
-
             </div>
-          </article>
+
+            <p class="text-slate-500 text-sm font-mono">
+              Nov 2025 – Jan 2026 | Remote
+            </p>
+
+          </div>
+
+          <ul class="mt-5 space-y-3 text-slate-400 text-sm leading-relaxed">
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Built an IPL Live Win Probability Prediction System using FastAPI, Streamlit, and Scikit-Learn.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Trained Logistic Regression and Random Forest models on 75K+ innings records, achieving 86% accuracy.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Containerized the full-stack application using Docker and Docker Compose, reducing setup time by 90%.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Developed an interactive dashboard with dynamic probability visualizations and backend inference under 200 ms.
+            </li>
+          </ul>
+
+        </div>
 
 
-          <!-- Infosys -->
-          <article class="experience-item reveal">
-            <span class="timeline-dot"></span>
+        <!-- IMC -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
 
-            <div class="experience-card">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
 
-              <div class="experience-date">NOV 2025 — JAN 2026</div>
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                Frontend Web Developer Intern
+              </h3>
 
-              <h3>Machine Learning Intern</h3>
-
-              <p class="experience-company">Infosys</p>
-
-              <ul>
-                <li>Developed an IPL win probability application using FastAPI, Streamlit, and scikit-learn.</li>
-                <li>Processed 75K+ records and achieved 86% prediction accuracy.</li>
-                <li>Containerized application components using Docker Compose, reducing setup time by 90%.</li>
-              </ul>
-
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">FastAPI</span>
-                <span class="tag">Docker</span>
-                <span class="tag">Streamlit</span>
-              </div>
-
-            </div>
-          </article>
-
-
-          <!-- IMC -->
-          <article class="experience-item reveal">
-            <span class="timeline-dot"></span>
-
-            <div class="experience-card">
-
-              <div class="experience-date">JUN 2024 — AUG 2024 · INDORE</div>
-
-              <h3>Frontend Web Developer Intern</h3>
-
-              <p class="experience-company">
+              <p class="text-primary font-semibold mt-1">
                 Indore Municipal Corporation
               </p>
-
-              <ul>
-                <li>Contributed to the Nagar Nigam Map project using Google Maps integration.</li>
-                <li>Implemented search functionality and optimized lookups, reducing lookup time by 40%.</li>
-                <li>Added bilingual Hindi-English support and collaborated using Git for version control and documentation.</li>
-              </ul>
-
-              <div class="tags">
-                <span class="tag">JavaScript</span>
-                <span class="tag">Google Maps</span>
-                <span class="tag">Frontend</span>
-                <span class="tag">Git</span>
-              </div>
-
             </div>
-          </article>
+
+            <p class="text-slate-500 text-sm font-mono">
+              Jun 2024 – Aug 2024 | Indore, India
+            </p>
+
+          </div>
+
+          <ul class="mt-5 space-y-3 text-slate-400 text-sm leading-relaxed">
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Contributed to the Nagar Nigam Map project using Google Maps integration to improve citizen navigation.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Implemented search functionality and Hindi/English language support, reducing lookup time by 40%.
+            </li>
+            <li>
+              <i class="fas fa-angle-right text-primary mr-2"></i>
+              Used Git for version control and collaborated on documentation and frontend improvements.
+            </li>
+          </ul>
 
         </div>
+
       </div>
     </section>
 
 
-    <!-- ENGINEERING APPROACH -->
-    <section class="section" id="approach">
-      <div class="container">
+    <!-- PROJECTS -->
+    <section id="projects" class="py-20">
 
-        <div class="section-heading reveal">
-          <span class="eyebrow">05 / ENGINEERING MINDSET</span>
-          <h2>How I approach <span class="gradient-text">engineering.</span></h2>
-          <p class="section-description">
-            Beyond frameworks, I value the fundamentals that
-            make software understandable, dependable, and maintainable.
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">03.</span> Projects
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- IntelliS -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
+
+          <div class="flex justify-between items-center mb-5">
+            <i class="fas fa-video text-3xl text-primary"></i>
+
+            <a href="https://github.com/tejswini-tiwari/store-intelligence"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-slate-400 hover:text-primary transition text-xl">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-3">
+            IntelliS – Store Intelligence
+          </h3>
+
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            An end-to-end retail analytics platform that processes CCTV streams
+            to generate customer behavior insights and store conversion analytics.
           </p>
+
+          <ul class="text-slate-400 text-sm space-y-2 mb-6">
+            <li>• Processes CCTV streams from 5+ cameras across 20 shops.</li>
+            <li>• YOLOv8 and ByteTrack pipeline achieving 92%+ tracking accuracy at 15 FPS.</li>
+            <li>• Re-Identification, staff exclusion, and session management to reduce duplicate customer counts by 85%.</li>
+            <li>• FastAPI event engine with Redis Pub/Sub and PostgreSQL handling 10,000+ events/day.</li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Python</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">YOLOv8</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">FastAPI</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Redis</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">PostgreSQL</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Docker</span>
+          </div>
+
+          <a href="https://github.com/tejswini-tiwari/store-intelligence"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-block mt-6 text-primary text-sm hover:underline">
+            View Repository <i class="fas fa-arrow-up-right-from-square ml-1"></i>
+          </a>
+
         </div>
 
 
-        <div class="approach-grid">
+        <!-- IPL -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
 
-          <div class="approach-card reveal">
-            <i class="fas fa-diagram-project"></i>
-            <h3>End-to-End Thinking</h3>
-            <p>
-              Understanding how frontend interfaces, backend
-              services, APIs, and databases interact as one system.
-            </p>
+          <div class="flex justify-between items-center mb-5">
+            <i class="fas fa-chart-line text-3xl text-primary"></i>
+
+            <a href="https://github.com/tejswini-tiwari/IPL-win-probability-predictor"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-slate-400 hover:text-primary transition text-xl">
+              <i class="fab fa-github"></i>
+            </a>
           </div>
 
-          <div class="approach-card reveal">
-            <i class="fas fa-shield-halved"></i>
-            <h3>Security & Data Integrity</h3>
-            <p>
-              Paying attention to authentication, role-based
-              access, validation, and responsible data handling.
-            </p>
+          <h3 class="text-xl font-bold text-white mb-3">
+            IPL Win Probability Predictor
+          </h3>
+
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            A full-stack machine learning application that predicts live IPL
+            match-winning probabilities through an interactive dashboard.
+          </p>
+
+          <ul class="text-slate-400 text-sm space-y-2 mb-6">
+            <li>• Trained Logistic Regression and Random Forest models on 75K+ innings records.</li>
+            <li>• Achieved 86% prediction accuracy.</li>
+            <li>• Built backend inference APIs using FastAPI and an interactive Streamlit frontend.</li>
+            <li>• Containerized using Docker Compose, reducing setup time by 90%.</li>
+            <li>• Backend inference latency under 200 ms.</li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Python</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">FastAPI</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Streamlit</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Scikit-Learn</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Docker</span>
           </div>
 
-          <div class="approach-card reveal">
-            <i class="fas fa-vial"></i>
-            <h3>Testing & Reliability</h3>
-            <p>
-              Valuing error analysis, testing, debugging,
-              and iterative improvements to application behavior.
-            </p>
-          </div>
-
-          <div class="approach-card reveal">
-            <i class="fas fa-terminal"></i>
-            <h3>Systems & Linux</h3>
-            <p>
-              Working in Unix-like development environments
-              and exploring system-level tools and workflows.
-            </p>
-          </div>
-
-          <div class="approach-card reveal">
-            <i class="fab fa-docker"></i>
-            <h3>Containers & Deployment</h3>
-            <p>
-              Using Docker and Docker Compose to package
-              application components and simplify setup.
-            </p>
-          </div>
-
-          <div class="approach-card reveal">
-            <i class="fas fa-people-group"></i>
-            <h3>Collaborative Development</h3>
-            <p>
-              Learning through open-source collaboration,
-              pull requests, code reviews, and mentor feedback.
-            </p>
-          </div>
+          <a href="https://github.com/tejswini-tiwari/IPL-win-probability-predictor"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-block mt-6 text-primary text-sm hover:underline">
+            View Repository <i class="fas fa-arrow-up-right-from-square ml-1"></i>
+          </a>
 
         </div>
+
+
+        <!-- Rest-Rev -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
+
+          <div class="flex justify-between items-center mb-5">
+            <i class="fas fa-robot text-3xl text-primary"></i>
+
+            <a href="https://github.com/tejswini-tiwari/Rest-Rev"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-slate-400 hover:text-primary transition text-xl">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-3">
+            Rest-Rev – Restaurant Review RAG
+          </h3>
+
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            A Retrieval-Augmented Generation chatbot that helps users discover
+            insights from a large collection of restaurant reviews.
+          </p>
+
+          <ul class="text-slate-400 text-sm space-y-2 mb-6">
+            <li>• Built a RAG-based chatbot using 50K+ restaurant reviews.</li>
+            <li>• Integrated LLaMA 3.2 and mxbai-embed-large for semantic search.</li>
+            <li>• Improved retrieval relevance by 30%+ compared to keyword search.</li>
+            <li>• Implemented vector retrieval pipelines using ChromaDB and LangChain, generating responses under 2 seconds.</li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Python</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">LangChain</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">LLaMA 3.2</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">ChromaDB</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">RAG</span>
+          </div>
+
+          <a href="https://github.com/tejswini-tiwari/Rest-Rev"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-block mt-6 text-primary text-sm hover:underline">
+            View Repository <i class="fas fa-arrow-up-right-from-square ml-1"></i>
+          </a>
+
+        </div>
+
+
+        <!-- Terminal Game -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
+
+          <div class="flex justify-between items-center mb-5">
+            <i class="fas fa-terminal text-3xl text-primary"></i>
+
+            <a href="https://github.com/tejswini-tiwari/Terminal-Based-Game"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-slate-400 hover:text-primary transition text-xl">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-3">
+            Terminal-Based Game
+          </h3>
+
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            A terminal-based game demonstrating client-server communication
+            and network programming using Python sockets.
+          </p>
+
+          <ul class="text-slate-400 text-sm space-y-2 mb-6">
+            <li>• Implemented client-server communication using Python sockets.</li>
+            <li>• Used TCP/IP for reliable communication between connected clients.</li>
+            <li>• Worked with network communication and synchronization logic.</li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Python</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Sockets</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">TCP/IP</span>
+            <span class="skill-tag text-xs px-3 py-1 rounded-full">Networking</span>
+          </div>
+
+          <a href="https://github.com/tejswini-tiwari/Terminal-Based-Game"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-block mt-6 text-primary text-sm hover:underline">
+            View Repository <i class="fas fa-arrow-up-right-from-square ml-1"></i>
+          </a>
+
+        </div>
+
       </div>
     </section>
 
 
     <!-- ACHIEVEMENTS & CERTIFICATIONS -->
-    <!-- Original achievements section retained without content changes -->
-    <section class="section" id="achievements">
-      <div class="container">
+    <section id="achievements" class="py-20">
 
-        <div class="section-heading reveal">
-          <span class="eyebrow">06 / RECOGNITION</span>
-          <h2>Achievements & Certifications</h2>
-        </div>
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">04.</span> Achievements & Certifications
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
 
-        <div class="achievements-grid">
+      <div class="grid md:grid-cols-2 gap-6">
 
-          <div class="achievement-card reveal">
-            <h3>Notable Achievements</h3>
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
 
-            <ul>
-              <li>AWS AI-ML Scholar — selected as one of 1,500 students from ~50,000 applicants</li>
-              <li>Top 10 — DC Hackathon</li>
-              <li>TCS CodeVita Season XII — Global Rank 7565 / 537,000 participants</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-white mb-5">
+            <i class="fas fa-trophy text-primary mr-2"></i>
+            Notable Achievements
+          </h3>
 
-
-          <div class="achievement-card reveal">
-            <h3>Certifications & Coursework</h3>
-
-            <p>
-              <strong>Certifications:</strong>
-              AWS AI Scientist, Oracle Cloud Infrastructure —
-              Generative AI Professional (2025), OCI Data Science
-              Professional (2025), Infosys Springboard,
-              AWS ML Foundations
-            </p>
-
-            <p>
-              <strong>Relevant Coursework:</strong>
-              Object-Oriented Programming, Data Structures &
-              Algorithms, DBMS (MySQL), Artificial Intelligence
-              & Machine Learning, Data Analytics
-            </p>
-          </div>
+          <ul class="list-disc list-inside text-slate-300 text-sm space-y-4">
+            <li>AWS AI-ML Scholar — selected as one of 1,500 students from ~50,000 applicants</li>
+            <li>Top 10 — DC Hackathon</li>
+            <li>TCS CodeVita Season XII — Global Rank 7565 / 537,000 participants</li>
+          </ul>
 
         </div>
+
+
+        <div class="bg-card border border-slate-800 rounded-2xl p-7 card-hover">
+
+          <h3 class="text-xl font-semibold text-white mb-5">
+            <i class="fas fa-certificate text-primary mr-2"></i>
+            Certifications & Coursework
+          </h3>
+
+          <p class="text-slate-300 text-sm leading-relaxed mb-5">
+            <strong class="text-white">Certifications:</strong>
+            AWS AI Scientist, Oracle Cloud Infrastructure — Generative AI Professional (2025), OCI Data Science Professional (2025), Infosys Springboard, AWS ML Foundations
+          </p>
+
+          <p class="text-slate-300 text-sm leading-relaxed">
+            <strong class="text-white">Relevant Coursework:</strong>
+            Object-Oriented Programming, Data Structures & Algorithms, DBMS (MySQL), Artificial Intelligence & Machine Learning, Data Analytics
+          </p>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- TOOLS I USE -->
+    <section id="tools" class="py-20">
+
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">05.</span> Tools I Use
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Languages -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-code text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">Programming Languages</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">C++</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Python</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">JavaScript</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Java</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">SQL</span>
+          </div>
+        </div>
+
+
+        <!-- Frontend -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-window-maximize text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">Frontend Development</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">HTML</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">CSS</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Tailwind CSS</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">React</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">JavaScript</span>
+          </div>
+        </div>
+
+
+        <!-- Backend -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-server text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">Backend Development</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Node.js</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Express.js</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">FastAPI</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Flask</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">REST APIs</span>
+          </div>
+        </div>
+
+
+        <!-- Databases -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-database text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">Databases & Storage</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">MongoDB</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">PostgreSQL</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">MySQL</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Redis</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">ChromaDB</span>
+          </div>
+        </div>
+
+
+        <!-- Cloud and DevOps -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-cloud text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">Cloud & DevOps</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">AWS</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Docker</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Docker Compose</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Git</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">GitHub</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Linux / Ubuntu</span>
+          </div>
+        </div>
+
+
+        <!-- AI/ML -->
+        <div class="bg-card border border-slate-800 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-3 mb-5">
+            <i class="fas fa-brain text-primary text-xl"></i>
+            <h3 class="font-semibold text-white">AI / ML</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Scikit-Learn</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">PyTorch</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">OpenCV</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">YOLO</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">LangChain</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">RAG</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">Pandas</span>
+            <span class="skill-tag px-3 py-2 rounded-lg text-sm">NumPy</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ENGINEERING INTERESTS -->
+    <section class="py-20">
+
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-3xl font-bold">
+          <span class="section-label">06.</span> Engineering Interests
+        </h2>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="bg-card border border-slate-800 rounded-xl p-6 card-hover">
+          <i class="fas fa-layer-group text-primary text-2xl mb-4"></i>
+          <h3 class="font-semibold text-white mb-2">Full Stack Systems</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Building applications across frontend, backend, APIs, and databases.
+          </p>
+        </div>
+
+        <div class="bg-card border border-slate-800 rounded-xl p-6 card-hover">
+          <i class="fas fa-network-wired text-primary text-2xl mb-4"></i>
+          <h3 class="font-semibold text-white mb-2">Backend & Networking</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Understanding APIs, client-server communication, and system behavior.
+          </p>
+        </div>
+
+        <div class="bg-card border border-slate-800 rounded-xl p-6 card-hover">
+          <i class="fas fa-shield-alt text-primary text-2xl mb-4"></i>
+          <h3 class="font-semibold text-white mb-2">Reliable Engineering</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Interested in testing, security, maintainability, and software quality.
+          </p>
+        </div>
+
+        <div class="bg-card border border-slate-800 rounded-xl p-6 card-hover">
+          <i class="fas fa-cloud-arrow-up text-primary text-2xl mb-4"></i>
+          <h3 class="font-semibold text-white mb-2">Cloud & DevOps</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Exploring containerization, cloud infrastructure, and deployment workflows.
+          </p>
+        </div>
+
       </div>
     </section>
 
 
     <!-- CONTACT -->
-    <section class="contact-section" id="contact">
-      <div class="container reveal">
+    <section id="contact" class="py-24 text-center">
 
-        <span class="eyebrow">07 / GET IN TOUCH</span>
+      <p class="section-label mb-4">07. What's Next?</p>
 
-        <h2>
-          Let's build something<br>
-          <span class="gradient-text">meaningful.</span>
-        </h2>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Let's Build Something
+        <span class="text-gradient">Together.</span>
+      </h2>
 
-        <p>
-          I'm interested in software engineering, full-stack
-          development, backend systems, cloud technologies,
-          and collaborating with engineering teams that value
-          curiosity and continuous learning.
-        </p>
+      <p class="text-slate-400 max-w-xl mx-auto leading-relaxed mb-10">
+        I'm always interested in meaningful engineering challenges,
+        collaborative projects, and opportunities to learn and contribute.
+        Feel free to reach out.
+      </p>
 
-        <div class="contact-actions">
+      <a href="mailto:tiwaritejswini1@gmail.com"
+         class="inline-block px-8 py-4 bg-primary text-[#071422] font-bold rounded-lg hover:bg-cyan-300 transition">
+        Say Hello
+        <i class="fas fa-paper-plane ml-2"></i>
+      </a>
 
-          <a href="mailto:tiwaritejswini1@gmail.com" class="btn btn-primary">
-            <i class="far fa-envelope"></i> Email Me
-          </a>
+      <div class="flex justify-center flex-wrap gap-7 mt-12 text-2xl text-slate-400">
 
-          <a href="https://github.com/tejswini-tiwari" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-            <i class="fab fa-github"></i> GitHub
-          </a>
+        <a href="mailto:tiwaritejswini1@gmail.com"
+           aria-label="Email"
+           class="hover:text-primary transition">
+          <i class="fas fa-envelope"></i>
+        </a>
 
-          <a href="https://linkedin.com/in/tejswini-tiwari-5833a3290" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-            <i class="fab fa-linkedin-in"></i> LinkedIn
-          </a>
+        <a href="https://github.com/tejswini-tiwari"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="GitHub"
+           class="hover:text-primary transition">
+          <i class="fab fa-github"></i>
+        </a>
 
-        </div>
-
-        <div class="contact-details">
-          <a href="mailto:tiwaritejswini1@gmail.com">
-            tiwaritejswini1@gmail.com
-          </a>
-
-          <a href="tel:+918770172271">
-            +91 8770172271
-          </a>
-
-          <span>Indore, India</span>
-        </div>
+        <a href="https://linkedin.com/in/tejswini-tiwari-5833a3290"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="LinkedIn"
+           class="hover:text-primary transition">
+          <i class="fab fa-linkedin"></i>
+        </a>
 
       </div>
+
+      <footer class="border-t border-slate-800 mt-20 pt-8 text-slate-500 text-sm">
+        <p>© 2026 Tejswini Tiwari. Built with Tailwind CSS.</p>
+        <p class="mt-2 font-mono text-xs">Designed & developed with curiosity.</p>
+      </footer>
+
     </section>
 
   </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p>© 2026 Tejswini Tiwari · Designed & built with HTML, CSS and JavaScript.</p>
-    </div>
-  </footer>
-
-
-  <!-- JAVASCRIPT -->
-  <script>
-    // Mobile navigation
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.innerHTML = isOpen
-        ? '<i class="fas fa-times"></i>'
-        : '<i class="fas fa-bars"></i>';
-    });
-
-    // Close menu after selecting a section
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-      });
-    });
-
-    // Scroll reveal animation
-    const revealElements = document.querySelectorAll(".reveal");
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.12
-        }
-      );
-
-      revealElements.forEach(element => observer.observe(element));
-    } else {
-      revealElements.forEach(element => element.classList.add("visible"));
-    }
-  </script>
 
 </body>
 </html>
